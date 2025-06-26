@@ -2,6 +2,47 @@
 
 import { motion } from 'framer-motion';
 import { useForm, ValidationError } from '@formspree/react';
+import {
+  EnvelopeIcon,
+  DevicePhoneMobileIcon,
+} from '@heroicons/react/24/outline';
+import {
+  FaFacebook,
+  FaInstagram,
+  FaLinkedin,
+  FaTelegram,
+} from 'react-icons/fa';
+
+const socialLinks = [
+  {
+    name: 'Instagram',
+    href: 'https://www.instagram.com/yeab_479/',
+    icon: FaInstagram,
+    color: 'text-[#E4405F]',
+    hoverColor: 'hover:text-[#E4405F]/80'
+  },
+  {
+    name: 'Facebook',
+    href: '#',
+    icon: FaFacebook,
+    color: 'text-[#1877F2]',
+    hoverColor: 'hover:text-[#1877F2]/80'
+  },
+  {
+    name: 'LinkedIn',
+    href: '#',
+    icon: FaLinkedin,
+    color: 'text-[#0A66C2]',
+    hoverColor: 'hover:text-[#0A66C2]/80'
+  },
+  {
+    name: 'Telegram',
+    href: 'https://t.me/yeab_47',
+    icon: FaTelegram,
+    color: 'text-[#26A5E4]',
+    hoverColor: 'hover:text-[#26A5E4]/80'
+  }
+];
 
 export function Contact() {
   const [state, handleSubmit] = useForm('YOUR_FORMSPREE_ID');
@@ -24,6 +65,39 @@ export function Contact() {
               Have a project in mind? Let&apos;s talk about it.
             </p>
           </div>
+
+          {/* Contact Info */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="flex flex-col items-center justify-center gap-6 text-center"
+          >
+            <a
+              href="mailto:yabumac01@gmail.com"
+              className="flex items-center gap-2 text-primary transition-colors hover:text-primary/80"
+            >
+              <EnvelopeIcon className="h-5 w-5" />
+              <span>yabumac01@gmail.com</span>
+            </a>
+            <div className="flex items-center gap-8">
+              {socialLinks.map((social) => (
+                <motion.a
+                  key={social.name}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`transition-all duration-300 ${social.color} ${social.hoverColor}`}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <social.icon className="h-7 w-7" />
+                  <span className="sr-only">{social.name}</span>
+                </motion.a>
+              ))}
+            </div>
+          </motion.div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <motion.div

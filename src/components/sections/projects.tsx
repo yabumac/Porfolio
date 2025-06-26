@@ -2,143 +2,129 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Octokit } from '@octokit/rest';
 import Image from 'next/image';
 import { CodeBracketIcon, ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
+import { SectionWrapper } from '../section-wrapper';
 
-interface Repository {
-  name: string;
-  description: string | null;
-  html_url: string;
-  homepage: string | null | undefined;
-  topics: string[];
-  language: string | null;
-}
+const featuredProjects = [
+  {
+    name: 'v808 Records',
+    description: 'A personal music channel platform showcasing original compositions and music production. Built with modern web technologies for optimal audio streaming and playback.',
+    image: '/wallpaperflare.com_wallpaper (4).jpg',
+    github: 'https://github.com/yabumac/v808_Records.git',
+    tech: ['React', 'Audio API', 'Node.js', 'Vite'],
+    featured: true
+  },
+  {
+    name: 'QenGen - Question Generation',
+    description: 'A comprehensive platform for generating questions from various document formats (PDF, DOCX) using AI. Features multiple question types and Gemini AI for image processing.',
+    image: '/photo_2025-04-05_08-43-33.jpg',
+    github: 'https://github.com/IncalaCode/google_project.git',
+    tech: ['JavaScript', 'HTML', 'CSS', 'Gemini AI'],
+    featured: true
+  },
+  {
+    name: 'Nard Project',
+    description: 'An innovative web application focused on modern development practices and user experience. Built with cutting-edge technologies.',
+    image: '/photo_2025-06-11_21-32-13.jpg',
+    github: 'https://github.com/Yabets-art/nard-new-repo.git',
+    tech: ['Next.js', 'TypeScript', 'Tailwind CSS'],
+    featured: true
+  }
+];
 
 export function Projects() {
-  const [repos, setRepos] = useState<Repository[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchRepos = async () => {
-      try {
-        const octokit = new Octokit();
-        const { data } = await octokit.repos.listForUser({
-          username: 'YOUR_GITHUB_USERNAME',
-          sort: 'updated',
-          per_page: 6,
-        });
-        setRepos(data as Repository[]);
-      } catch (error) {
-        console.error('Error fetching repositories:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchRepos();
-  }, []);
-
   return (
-    <section id="projects" className="bg-muted/30 py-16 md:py-24">
-      <div className="container px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="space-y-12"
-        >
-          <div className="space-y-2 text-center">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">
+    <section id="projects" className="py-16 md:py-24">
+      <SectionWrapper fromDirection="right">
+        <div className="container px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="space-y-2 text-center"
+          >
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
               Featured Projects
             </h2>
-            <p className="text-muted-foreground">
-              A selection of my recent work and contributions
+            <div className="mx-auto mt-4 h-1 w-12 bg-primary" />
+            <p className="mx-auto mt-4 max-w-[700px] text-muted-foreground">
+              Showcasing my latest work and contributions to innovative projects
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {loading ? (
-              Array.from({ length: 6 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="h-64 animate-pulse rounded-lg bg-muted"
-                />
-              ))
-            ) : (
-              repos.map((repo, index) => (
-                <motion.div
-                  key={repo.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="group relative overflow-hidden rounded-lg bg-background shadow-md transition-all hover:shadow-lg"
-                >
-                  <div className="aspect-video w-full bg-muted">
+          <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {featuredProjects.map((project, index) => (
+              <motion.div
+                key={project.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="group relative overflow-hidden rounded-lg bg-card"
+              >
+                {/* Project Image */}
+                <div className="aspect-video w-full overflow-hidden">
+                  <div className="relative h-full w-full">
                     <Image
-                      src={`https://opengraph.githubassets.com/1/${repo.html_url.replace('https://github.com/', '')}`}
-                      alt={repo.name}
-                      width={600}
-                      height={400}
-                      className="object-cover"
+                      src={project.image}
+                      alt={project.name}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-110"
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-background/0" />
+                  </div>
+                </div>
+
+                {/* Project Info */}
+                <div className="relative space-y-4 p-6">
+                  <div className="space-y-2">
+                    <h3 className="text-xl font-bold tracking-tight group-hover:text-primary">
+                      {project.name}
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      {project.description}
+                    </p>
                   </div>
 
-                  <div className="space-y-4 p-4">
-                    <div className="space-y-2">
-                      <h3 className="font-medium">{repo.name}</h3>
-                      <p className="line-clamp-2 text-sm text-muted-foreground">
-                        {repo.description || 'No description available'}
-                      </p>
-                    </div>
-
-                    <div className="flex flex-wrap gap-2">
-                      {repo.topics?.map((topic) => (
-                        <span
-                          key={topic}
-                          className="rounded-full bg-primary/10 px-2 py-1 text-xs font-medium text-primary"
-                        >
-                          {topic}
-                        </span>
-                      ))}
-                      {repo.language && (
-                        <span className="rounded-full bg-primary/10 px-2 py-1 text-xs font-medium text-primary">
-                          {repo.language}
-                        </span>
-                      )}
-                    </div>
-
-                    <div className="flex gap-4">
-                      <a
-                        href={repo.html_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-sm font-medium text-foreground hover:text-primary"
+                  {/* Tech Stack */}
+                  <div className="flex flex-wrap gap-2">
+                    {project.tech.map((tech) => (
+                      <span
+                        key={tech}
+                        className="inline-flex items-center rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary"
                       >
-                        <CodeBracketIcon className="h-4 w-4" />
-                        Code
-                      </a>
-                      {repo.homepage && (
-                        <a
-                          href={repo.homepage}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-sm font-medium text-foreground hover:text-primary"
-                        >
-                          <ArrowTopRightOnSquareIcon className="h-4 w-4" />
-                          Demo
-                        </a>
-                      )}
-                    </div>
+                        {tech}
+                      </span>
+                    ))}
                   </div>
-                </motion.div>
-              ))
-            )}
+
+                  {/* Links */}
+                  <div className="flex items-center gap-4">
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-sm font-medium text-foreground/60 transition-colors hover:text-primary"
+                    >
+                      <CodeBracketIcon className="h-4 w-4" />
+                      View Source
+                      <ArrowTopRightOnSquareIcon className="h-3 w-3" />
+                    </a>
+                  </div>
+
+                  {/* Animated border */}
+                  <motion.div
+                    initial={{ scaleX: 0 }}
+                    whileInView={{ scaleX: 1 }}
+                    transition={{ duration: 0.8, delay: index * 0.2 }}
+                    className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary/50 to-transparent"
+                  />
+                </div>
+              </motion.div>
+            ))}
           </div>
-        </motion.div>
-      </div>
+        </div>
+      </SectionWrapper>
     </section>
   );
 } 

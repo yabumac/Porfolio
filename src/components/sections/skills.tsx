@@ -1,122 +1,132 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { SectionWrapper } from '../section-wrapper';
 
-const skills = {
-  'Frontend Development': [
-    'React.js',
-    'Next.js',
-    'TypeScript',
-    'Tailwind CSS',
-    'HTML5',
-    'CSS3',
-    'JavaScript',
-  ],
-  'Backend Development': [
-    'Node.js',
-    'Express.js',
-    'Python',
-    'Django',
-    'RESTful APIs',
-    'GraphQL',
-  ],
-  'Database & Cloud': [
-    'MongoDB',
-    'PostgreSQL',
-    'Firebase',
-    'AWS',
-    'Docker',
-    'Git',
-  ],
-  'Mobile Development': [
-    'React Native',
-    'Flutter',
-    'Android (Java)',
-    'iOS (Swift)',
-  ],
+const skills = [
+  {
+    category: 'Programming Languages',
+    items: ['Java', 'JavaScript', 'C++', 'PHP', 'SQL', 'HTML/CSS', 'Python', 'TypeScript','Tailwind CSS']
+  },
+  {
+    category: 'Frameworks & Tools',
+    items: ['React', 'Node.js', 'Laravel', 'Flutter', 'Bootstrap', 'jQuery', 'Next.js', 'Git']
+  },
+  {
+    category: 'Backend & Database',
+    items: ['RESTful APIs', 'SQL', 'MongoDB', 'Token Auth', 'OTP Systems', 'Chapa Payment']
+  },
+  {
+    category: 'Mobile Development',
+    items: ['Flutter', 'Android (Java)', 'React Native', 'iOS (Swift)', 'Mobile UI/UX']
+  },
+  {
+    category: 'System Design',
+    items: ['API Design', 'Database Design', 'Security', 'Role-based Access', 'System Architecture']
+  },
+  {
+    category: 'Additional Skills',
+    items: ['UI/UX Design', 'Digital Literacy', 'AI Integration', 'Music Production', 'Team Leadership']
+  }
+];
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: i * 0.1,
+      duration: 0.8,
+      ease: [0.25, 0.25, 0, 1]
+    }
+  })
 };
 
-const softSkills = [
-  'Team Collaboration',
-  'Fast Learner',
-  'Problem Solving',
-  'Communication',
-  'Time Management',
-  'Adaptability',
-];
+const skillVariants = {
+  hidden: { opacity: 0, scale: 0.8 },
+  visible: (i: number) => ({
+    opacity: 1,
+    scale: 1,
+    transition: {
+      delay: i * 0.05,
+      duration: 0.5,
+      ease: [0.25, 0.25, 0, 1]
+    }
+  })
+};
 
 export function Skills() {
   return (
-    <section id="skills" className="bg-muted/30 py-16 md:py-24">
-      <div className="container px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="space-y-12"
-        >
-          <div className="space-y-2 text-center">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">
-              Skills & Expertise
+    <section id="skills" className="py-16 md:py-24">
+      <SectionWrapper fromDirection="right">
+        <div className="container px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="space-y-2 text-center"
+          >
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+              Skills & Technologies
             </h2>
-            <p className="text-muted-foreground">
-              My technical skillset and professional capabilities
+            <div className="mx-auto mt-4 h-1 w-12 bg-primary" />
+            <p className="mx-auto mt-4 max-w-[700px] text-muted-foreground">
+              I work with a variety of technologies across the full stack, always keeping up with
+              the latest industry standards and best practices.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {Object.entries(skills).map(([category, items], categoryIndex) => (
+          <div className="mt-16 grid gap-8 md:grid-cols-3">
+            {skills.map((skillGroup, groupIndex) => (
               <motion.div
-                key={category}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                key={skillGroup.category}
+                custom={groupIndex}
+                initial="hidden"
+                whileInView="visible"
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}
-                className="space-y-4 rounded-lg bg-background p-6 shadow-sm"
+                variants={cardVariants}
+                className="group relative overflow-hidden rounded-lg bg-card p-6 shadow-lg transition-all hover:shadow-xl"
               >
-                <h3 className="font-semibold">{category}</h3>
-                <ul className="space-y-2">
-                  {items.map((skill, skillIndex) => (
-                    <motion.li
-                      key={skill}
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{
-                        duration: 0.5,
-                        delay: categoryIndex * 0.1 + skillIndex * 0.05,
-                      }}
-                      className="text-sm text-muted-foreground"
-                    >
-                      {skill}
-                    </motion.li>
-                  ))}
-                </ul>
+                {/* Animated background gradient */}
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+                
+                <div className="relative space-y-4">
+                  <motion.h3
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: groupIndex * 0.1 }}
+                    className="text-xl font-bold"
+                  >
+                    {skillGroup.category}
+                  </motion.h3>
+                  
+                  <div className="flex flex-wrap gap-2">
+                    {skillGroup.items.map((skill, skillIndex) => (
+                      <motion.span
+                        key={skill}
+                        custom={skillIndex}
+                        variants={skillVariants}
+                        className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-sm text-primary transition-colors hover:bg-primary/20"
+                      >
+                        {skill}
+                      </motion.span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Animated border */}
+                <motion.div
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  transition={{ duration: 0.8, delay: groupIndex * 0.2 }}
+                  className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary/50 to-transparent"
+                />
               </motion.div>
             ))}
           </div>
-
-          <div className="space-y-6">
-            <h3 className="text-xl font-medium">Soft Skills</h3>
-            <div className="grid grid-cols-2 gap-4">
-              {softSkills.map((skill, index) => (
-                <motion.div
-                  key={skill}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="flex items-center gap-2 rounded-lg bg-background p-4 shadow-sm"
-                >
-                  <div className="h-2 w-2 rounded-full bg-primary" />
-                  <span className="text-sm font-medium">{skill}</span>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </motion.div>
-      </div>
+        </div>
+      </SectionWrapper>
     </section>
   );
 } 

@@ -2,8 +2,6 @@ import type { Metadata } from 'next';
 import { Inter, Roboto_Mono } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
-import { SmoothScroll } from '@/components/smooth-scroll';
-import { CustomCursor } from '@/components/cursor';
 import { ScrollProgress } from '@/components/scroll-progress';
 import { Navbar } from '@/components/navbar';
 import { Footer } from '@/components/footer';
@@ -28,15 +26,12 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} ${robotoMono.variable} font-sans antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <SmoothScroll>
-            <CustomCursor />
-            <ScrollProgress />
-            <div className="flex min-h-screen flex-col">
-              <Navbar />
-              {children}
-              <Footer />
-            </div>
-          </SmoothScroll>
+          <ScrollProgress />
+          <div className="flex min-h-screen flex-col">
+            <Navbar />
+            {children}
+            <Footer />
+          </div>
         </ThemeProvider>
       </body>
     </html>
