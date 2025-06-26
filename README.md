@@ -4,33 +4,30 @@ A modern, responsive portfolio website built with Next.js, TypeScript, and Tailw
 
 ## Features
 
-- 🎨 Modern and clean design
-- 🌓 Dark/light mode with system preference detection
-- 📱 Fully responsive for all devices
+- 🌓 Dark/Light mode support
+- 🎨 Modern and responsive design
 - ⚡ Fast and optimized performance
-- 🔍 SEO-friendly
-- 🎭 Smooth animations with Framer Motion
-- 🔄 Automatic GitHub projects integration
-- 📝 Blog section for technical posts
-- 📬 Contact form with Formspree integration
+- 🔄 Smooth animations with Framer Motion
+- 📱 Mobile-friendly interface
+- 🤝 GitHub integration
+- 📝 Blog section
+- 📬 Contact form with Formspree
 
 ## Tech Stack
 
-- Next.js 14
-- TypeScript
-- Tailwind CSS
-- Framer Motion
-- Next Themes
-- Heroicons
-- Octokit (GitHub API)
-- Formspree
+- [Next.js](https://nextjs.org/) - React framework for production
+- [TypeScript](https://www.typescriptlang.org/) - Static type checking
+- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
+- [Framer Motion](https://www.framer.com/motion/) - Animation library
+- [next-themes](https://github.com/pacocoursey/next-themes) - Theme management
+- [@formspree/react](https://formspree.io/) - Form handling
+- [@octokit/rest](https://github.com/octokit/rest.js/) - GitHub API integration
 
 ## Getting Started
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/portfolio.git
-   cd portfolio
+   git clone https://github.com/yabumac/Porfolio.git
    ```
 
 2. Install dependencies:
@@ -38,35 +35,29 @@ A modern, responsive portfolio website built with Next.js, TypeScript, and Tailw
    npm install
    ```
 
-3. Create a `.env.local` file and add your environment variables:
-   ```
-   NEXT_PUBLIC_FORMSPREE_ID=your_formspree_id
-   ```
-
-4. Start the development server:
+3. Run the development server:
    ```bash
    npm run dev
    ```
 
-5. Open [http://localhost:3000](http://localhost:3000) in your browser.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Customization
+## Project Structure
 
-1. Update your personal information in the components
-2. Replace the placeholder avatar in `public/placeholder-avatar.jpg`
-3. Update your GitHub username in the Projects component
-4. Add your social media links in the Contact component
-5. Customize the color scheme in `tailwind.config.ts`
-
-## Deployment
-
-The site can be easily deployed to Vercel:
-
-1. Push your code to GitHub
-2. Import the repository in Vercel
-3. Add your environment variables
-4. Deploy!
+```
+Porfolio/
+├── src/
+│   ├── app/              # App router components
+│   │   └── sections/    # Main page sections
+├── public/              # Static assets
+└── ...config files     # Various configuration files
+```
 
 ## License
 
-MIT License 
+MIT License - Feel free to use this code for your own portfolio!
+
+## Contact
+
+Yabsera Teshome
+- GitHub: [@yabumac](https://github.com/yabumac)
